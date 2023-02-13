@@ -1,0 +1,252 @@
+<div class="row">
+    <div class="col-md-10 col-xs-12 mt-3 input-group-sm">
+        <input type="search" class="form-control" [(ngModel)]="searchText" placeholder="Search...">
+    </div>
+    <div class="col-md-2 col-xs-6 mt-3 input-group-sm">
+    <a class="icons" name="Add Player"><add-player-modal></add-player-modal></a>
+    <button class="icons" name="Edit Player" (click)="showEdit()"><i class="fas fa-pencil"></i></button>
+    <button class="icons" name="Delete Player" (click)="showDelete()"><i class="fas fa-trash"></i></button>
+    </div>
+</div>
+<div class="row">
+    <div class="table-responsive">
+    <table class="table table-striped table-hover table-bordered mt-2">
+      <thead>
+        <tr>
+          <th scope="col" *ngIf="showEditColumn == true"> <i class="fas fa-tools"></i> </th>
+          <th scope="col" *ngIf="showDeleteColumn == true"> <i class="fas fa-tools"></i> </th>
+          <th scope="col" [class.active]="order === 'Number'"   (click)="setOrder('Number')"> #             <span class="reverse" [hidden]="reverse">▼</span> <span class="reverse" [hidden]="!reverse">▲</span></th>
+          <th scope="col" [class.active]="order === 'Position'" (click)="setOrder('Position')">Position     <span class="reverse" [hidden]="reverse">▼</span> <span class="reverse" [hidden]="!reverse">▲</span></th>
+          <th scope="col" [class.active]="order === 'FirstName'"(click)="setOrder('FirstName')">First Name  <span class="reverse" [hidden]="reverse">▼</span> <span class="reverse" [hidden]="!reverse">▲</span></th>
+          <th scope="col" [class.active]="order === 'LastName'" (click)="setOrder('LastName')">Last Name    <span class="reverse" [hidden]="reverse">▼</span> <span class="reverse" [hidden]="!reverse">▲</span></th>
+          <th scope="col" [class.active]="order === 'Height'"   (click)="setOrder('Height')">Height         <span class="reverse" [hidden]="reverse">▼</span> <span class="reverse" [hidden]="!reverse">▲</span></th>
+          <th scope="col" [class.active]="order === 'Weight'"   (click)="setOrder('Weight')">Weight         <span class="reverse" [hidden]="reverse">▼</span> <span class="reverse" [hidden]="!reverse">▲</span></th>
+          <th scope="col">Birth Date</th>
+          <th scope="col" [class.active]="order === 'Country'" (click)="setOrder('Country')">Country        <span class="reverse" class="reverse" [hidden]="reverse">▼</span> <span class="reverse" [hidden]="!reverse">▲</span></th>
+          <th scope="col" [class.active]="order === 'Appearances'" (click)="setOrder('Appearances')">Appearances <span class="reverse" [hidden]="reverse">▼</span> <span class="reverse" [hidden]="!reverse">▲</span></th>
+          <th scope="col" [class.active]="order === 'Goals'" (click)="setOrder('Goals')">Goals              <span class="reverse" [hidden]="reverse">▼</span> <span class="reverse" [hidden]="!reverse">▲</span></th>
+          <th scope="col" [class.active]="order === 'Assists'" (click)="setOrder('Assists')">Assists        <span class="reverse" [hidden]="reverse">▼</span> <span class="reverse" [hidden]="!reverse">▲</span></th>
+          <th scope="col" [class.active]="order === 'CleanSheets'" (click)="setOrder('CleanSheets')">Clean Sheets <span class="reverse" [hidden]="reverse">▼</span> <span class="reverse" [hidden]="!reverse">▲</span></th>
+          <th scope="col">Loan Team</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let item of RosterList | orderBy: order:reverse:caseInsensitive | filter: searchText | paginate: { itemsPerPage, currentPage }">
+          <tr>
+              <td class="text-center" *ngIf="showEditColumn == true"><button class="icons" name="Edit Player" (click)="updatePlayer(item)"><i class="fas fa-pencil" data-bs-toggle="modal" data-bs-target="#editPlayerModal"></i></button></td>
+              <td class="text-center" *ngIf="showDeleteColumn == true"><button class="icons" name="Delete Player" (click)="deleteRow(item.PlayerID)"><i class="fas fa-trash"></i></button></td>
+              <td class="text-center">{{item.Number | number}}</td>
+              <td class="text-center">{{item.Position}}</td>
+              <td class="text-justify"><a (click)="openCardModalWith(item)" data-bs-toggle="modal" data-bs-target="#playerModal">{{item.FirstName}}</a></td>
+              <td class="text-justify"><a (click)="openCardModalWith(item)" data-bs-toggle="modal" data-bs-target="#playerModal">{{item.LastName}}</a></td>
+              <td class="text-center">{{item.Height | number:'1.2-2' | height }}</td>
+              <td class="text-center">{{item.Weight}}</td>
+              <td class="text-justify">{{item.Birthdate | date}}</td>
+              <td class="text-center">{{item.Country}}</td>
+              <td class="text-center">{{item.Appearances}}</td>
+              <td class="text-center">{{item.Goals}}</td>
+              <td class="text-center">{{item.Assists}}</td>
+              <td class="text-center">{{item.CleanSheets}}</td>
+              <td class="text-justify">{{item.LoanTeam}}</td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <table class="table table-bordered mt-2">
+    <tr *ngIf="RosterList.length === 0 || (RosterList | filter: searchText).length === 0"><td colspan="13" style="text-align: center; height: 180px; margin: 0 auto;">
+      <h2 *ngIf="initialSearch">We couldn't find data for '{{searchText}}'.<br />Sorry.</h2></td></tr>
+    </table>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="dropdown">
+          <button class="btn btn-muted dropdown-toggle" type="button" id="Items per page" data-bs-toggle="dropdown" aria-expanded="false">
+            {{itemsPerPage}} Items per page
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="Items per page">
+            <li><a class="dropdown-item" (click)="updatePageSize(5)">5</a></li>
+            <li><a class="dropdown-item" (click)="updatePageSize(10)">10</a></li>
+            <li><a class="dropdown-item" (click)="updatePageSize(15)">15</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col">
+        <pagination-controls class="pagination justify-content-end" (pageChange)="currentPage = $event"></pagination-controls>
+      </div>
+    </div>
+    <div class="row"></div>
+  </div>
+
+<!-- Player Card Modal -->
+  <div class="modal fade" id="playerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="max-width: 608px;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="rosterPlayerModalLabel">{{PlayerNumber}} {{Position}} {{FirstName}} {{LastName}}</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body m-0 p-0">
+            <div class="container m-0 p-0">
+                <div class="row m-0" style="color: white">
+                    <div class="col-6 p-0 m-0" style="border: 1px solid #000 !important">
+                    <ng-container *ngIf="modalOpen">  
+                    <img src="{{ImagePath + ImageName + '.jpg'}}" alt="" style="width: 302px; height: 295px">
+                    </ng-container>
+                        <div class="col-12 p-4 m-0">
+                            <p><span style="font-weight: bold;">Birthdate:</span> {{Birthdate | date :'mediumDate'}}<br />
+                            <span style="font-weight: bold;">Height:</span> {{Height | number:'1.2-2' | height }}<br />
+                            <span style="font-weight: bold;">Weight:</span> {{Weight}}<br />
+                            <span style="font-weight: bold;">Country:</span> {{Country}}</p>
+                        </div>
+                    </div>
+                    <div class="col-6 m-0 p-0" style="border: 1px solid #000 !important">
+                        <div class="row m-0">
+                            <div class="row m-0 p-0">
+                                <div class="col-6 grid-item">
+                                    <div class="well">
+                                        <p style="font-size: 3rem; text-shadow: 2px 1px #000;">{{Goals}}</p>
+                                        <span>Goals</span>
+                                    </div>
+                                </div>
+                                <div class="col-6 grid-item">
+                                    <div class="well">
+                                        <p style="font-size: 3rem; text-shadow: 2px 1px #000;">{{Assists}}</p>
+                                        <span>Assists</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row m-0 p-0">
+                                <div class="col-6 grid-item">
+                                    <div class="well">
+                                        <p style="font-size: 3rem; text-shadow: 2px 1px #000;">{{CleanSheets}}</p>
+                                        <span>Clean Sheets</span>
+                                    </div>
+                                </div>
+                                <div class="col-6 grid-item">
+                                    <div class="well">
+                                        <p style="font-size: 3rem; text-shadow: 2px 1px #000;">{{Appearances}}</p>
+                                        <span>Appearances</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <ng-container *ngIf="modalOpen">  
+                            <img src="{{FlagPath + Country + '.png' | lowercase}}" class="flag" />
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <!-- <button type="button" class="btn btn-danger">Previous</button>
+          <button type="button" class="btn btn-danger" (click)="xxx(PlayerID)">Next</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Edit Player Modal -->
+  <div class="modal fade" id="editPlayerModal" tabindex="-1" aria-labelledby="editPlayerModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+      <form>
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="editPlayerModalLabel">Edit {{FirstName}} {{LastName}}</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="container">
+                    <div class="row mb-3">
+                        <div class="col-sm-4">
+                        <input class="form-control" name="PlayerNumber" type="text" placeholder="Number" 
+                        [(ngModel)]="PlayerNumber" required />
+                        <label for="number">Number</label>
+                        <div class="invalid-feedback" data-sb-feedback="number:required">Number is required.</div>
+                        </div>
+                        <div class="col-sm-4">
+                          <select #position class="form-select" (change)="onSelected()">
+                            <option [ngValue]="PositionID" selected disabled>Select a Position</option>
+                            <option *ngFor="let position of PositionList" [value]="position.PositionID">{{position.PositionFullName}}</option>
+                          </select>
+                        </div>
+                        <div class="col-sm-4">
+                        <input class="form-control" name="LoanTeam" type="text" placeholder="Loan Team" [(ngModel)]="LoanTeam" />
+                        <label for="number">Loan Team</label>
+                        <div class="invalid-feedback" data-sb-feedback="number:required">Loan Team is required.</div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-6">
+                        <input class="form-control" name="FirstName" type="text" placeholder="First Name" data-sb-validations="required" [(ngModel)]="FirstName" />
+                        <label for="number">First Name</label>
+                        <div class="invalid-feedback" data-sb-feedback="number:required">First Name is required.</div>
+                        </div>
+                        <div class="col-sm-6">
+                        <input class="form-control" name="LastName" type="text" placeholder="Last Name" data-sb-validations="required" [(ngModel)]="LastName" />
+                        <label for="number">Last Name</label>
+                        <div class="invalid-feedback" data-sb-feedback="number:required">Last Name is required.</div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-6">
+                        <input class="form-control" name="Height" pattern="[0-9]*" data-politespace data-grouplength="2" data-delimiter="'" data-reverse value="123" type="text" placeholder="Height" data-sb-validations="required" [(ngModel)]="Height" />
+                        <label for="number">Height</label>
+                        <div class="invalid-feedback" data-sb-feedback="number:required">Height is required.</div>
+                        </div>
+                        <div class="col-sm-6">
+                        <input class="form-control" name="Weight" type="text" placeholder="Weight" data-sb-validations="required" [(ngModel)]="Weight" />
+                        <label for="number">Weight</label>
+                        <div class="invalid-feedback" data-sb-feedback="number:required">Weight is required.</div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-6">
+                        <input class="form-control" name="Birthdate" value="2017-06-01" type="date" placeholder="Birthdate" data-sb-validations="required" [(ngModel)]="Birthdate" />
+                        <label for="number">Birth Date</label>
+                        <div class="invalid-feedback" data-sb-feedback="number:required">Birth Date is required.</div>
+                        </div>
+                        <div class="col-sm-6">
+                          <select #country class="form-select" (change)="onSelected()">
+                          <option disabled selected value="undefined">Select a Country</option>
+                          <option *ngFor="let country of CountryList" [value]="country.CountryCode">{{country.CountryName}}</option>
+                        </select>
+                        
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-3">
+                        <input class="form-control" name="Appearances" type="text" placeholder="Appearances" data-sb-validations="required" [(ngModel)]="Appearances" />
+                        <label for="number">Appearances</label>
+                        <div class="invalid-feedback" data-sb-feedback="number:required">Appearances is required.</div>
+                        </div>
+                        <div class="col-sm-3">
+                        <input class="form-control" name="Goals" type="text" placeholder="Goals" data-sb-validations="required" [(ngModel)]="Goals" />
+                        <label for="number">Goals</label>
+                        <div class="invalid-feedback" data-sb-feedback="number:required">Goals is required.</div>
+                        </div>
+                        <div class="col-sm-3">
+                        <input class="form-control" name="Assists" type="text" placeholder="Assists" data-sb-validations="required" [(ngModel)]="Assists" />
+                        <label for="number">Assists</label>
+                        <div class="invalid-feedback" data-sb-feedback="number:required">Assists is required.</div>
+                        </div>
+                        <div class="col-sm-3">
+                        <input class="form-control" name="CleanSheets" type="text" placeholder="Clean Sheets" data-sb-validations="required" [(ngModel)]="CleanSheets" />
+                        <label for="number">Clean Sheets</label>
+                        <div class="invalid-feedback" data-sb-feedback="number:required">Clean Sheets is required.</div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-danger" data-bs-dismiss="modal" (click)="submitPlayer()">Save</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>

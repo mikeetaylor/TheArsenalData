@@ -1,0 +1,102 @@
+
+  <!-- Edit Player Modal -->
+  <!-- <div class="modal fade" id="editPlayerModal" tabindex="-1" aria-labelledby="editPlayerModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+      <form>
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="editPlayerModalLabel">QUEdit Player {{item}}</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="container">
+                    <div class="row mb-3">
+                        <div class="col-sm-4">
+                        <input class="form-control" name="PlayerNumber" type="text" placeholder="Number" 
+                        ngValue="33"
+                        [(ngModel)]="PlayerNumber" required />
+                        <label for="number">Number</label>
+                        <div class="invalid-feedback" data-sb-feedback="number:required">Number is required.</div>
+                        </div>
+                        <div class="col-sm-4">
+                          <select #position class="form-select" (change)="onSelected()">
+                            <option disabled selected value="undefined">Select a Position</option>
+                            <option *ngFor="let position of PositionList" [value]="position.PositionName">{{position.PositionFullName}}</option>
+                          </select>
+                        </div>
+                        <div class="col-sm-4">
+                        <input class="form-control" name="LoanTeam" type="text" placeholder="Loan Team" [(ngModel)]="LoanTeam" />
+                        <label for="number">Loan Team</label>
+                        <div class="invalid-feedback" data-sb-feedback="number:required">Loan Team is required.</div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-6">
+                        <input class="form-control" name="FirstName" type="text" placeholder="First Name" data-sb-validations="required" [(ngModel)]="FirstName" />
+                        <label for="number">First Name</label>
+                        <div class="invalid-feedback" data-sb-feedback="number:required">First Name is required.</div>
+                        </div>
+                        <div class="col-sm-6">
+                        <input class="form-control" name="LastName" type="text" placeholder="Last Name" data-sb-validations="required" [(ngModel)]="LastName" />
+                        <label for="number">Last Name</label>
+                        <div class="invalid-feedback" data-sb-feedback="number:required">Last Name is required.</div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-6">
+                        <input class="form-control" name="Height" pattern="[0-9]*" data-politespace data-grouplength="2" data-delimiter="'" data-reverse value="123" type="text" placeholder="Height" data-sb-validations="required" [(ngModel)]="Height" />
+                        <label for="number">Height</label>
+                        <div class="invalid-feedback" data-sb-feedback="number:required">Height is required.</div>
+                        </div>
+                        <div class="col-sm-6">
+                        <input class="form-control" name="Weight" type="text" placeholder="Weight" data-sb-validations="required" [(ngModel)]="Weight" />
+                        <label for="number">Weight</label>
+                        <div class="invalid-feedback" data-sb-feedback="number:required">Weight is required.</div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-6">
+                        <input class="form-control" name="Birthdate" value="2017-06-01" type="date" placeholder="Birthdate" data-sb-validations="required" [(ngModel)]="Birthdate" />
+                        <label for="number">Birth Date</label>
+                        <div class="invalid-feedback" data-sb-feedback="number:required">Birth Date is required.</div>
+                        </div>
+                        <div class="col-sm-6">
+                          <select #country class="form-select" (change)="onSelected()">
+                          <option disabled selected value="undefined">Select a Country</option>
+                          <option *ngFor="let country of CountryList" [value]="country.CountryCode">{{country.CountryName}}</option>
+                        </select>
+                        
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-3">
+                        <input class="form-control" name="Appearances" type="text" placeholder="Appearances" data-sb-validations="required" [(ngModel)]="Appearances" />
+                        <label for="number">Appearances</label>
+                        <div class="invalid-feedback" data-sb-feedback="number:required">Appearances is required.</div>
+                        </div>
+                        <div class="col-sm-3">
+                        <input class="form-control" name="Goals" type="text" placeholder="Goals" data-sb-validations="required" [(ngModel)]="Goals" />
+                        <label for="number">Goals</label>
+                        <div class="invalid-feedback" data-sb-feedback="number:required">Goals is required.</div>
+                        </div>
+                        <div class="col-sm-3">
+                        <input class="form-control" name="Assists" type="text" placeholder="Assists" data-sb-validations="required" [(ngModel)]="Assists" />
+                        <label for="number">Assists</label>
+                        <div class="invalid-feedback" data-sb-feedback="number:required">Assists is required.</div>
+                        </div>
+                        <div class="col-sm-3">
+                        <input class="form-control" name="CleanSheets" type="text" placeholder="Clean Sheets" data-sb-validations="required" [(ngModel)]="CleanSheets" />
+                        <label for="number">Clean Sheets</label>
+                        <div class="invalid-feedback" data-sb-feedback="number:required">Clean Sheets is required.</div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Save</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div> -->

@@ -1,0 +1,65 @@
+ <!-- Modal -->
+  <div class="modal fade" id="rosterPlayerModal" tabindex="-1" aria-labelledby="rosterPlayerModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="max-width: 608px;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="rosterPlayerModalLabel">{{data.Number}} {{data.Position}} {{data.FirstName}} {{data.LastName}}</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+        </div>
+        <div class="modal-body m-0 p-0">
+            <div class="container m-0 p-0">
+                <div class="row m-0" style="color: white">
+                    <div class="col-6 p-0 m-0" style="border: 1px solid #000 !important">
+                    <img [src]="imagePath + data.ImageName + '.jpg'" alt="" style="width: 302px; height: 295px">
+                        <div class="col-12 p-4 m-0">
+                            <p><span style="font-weight: bold;">Birthdate:</span> {{data.Birthdate | date :'mediumDate'}}<br />
+                            <span style="font-weight: bold;">Height:</span> {{data.Height | number:'1.2-2' | height }}<br />
+                            <span style="font-weight: bold;">Weight:</span> {{data.Weight}}<br />
+                            <span style="font-weight: bold;">Country:</span> {{data.Country}}</p>
+                        </div>
+                    </div>
+                    <div class="col-6 m-0 p-0" style="border: 1px solid #000 !important">
+                        <div class="row m-0">
+                            <div class="row m-0 p-0">
+                                <div class="col-6 grid-item">
+                                    <div class="well">
+                                        <p style="font-size: 3rem; text-shadow: 2px 1px #000;">{{data.Goals}}</p>
+                                        <span>Goals</span>
+                                    </div>
+                                </div>
+                                <div class="col-6 grid-item">
+                                    <div class="well">
+                                        <p style="font-size: 3rem; text-shadow: 2px 1px #000;">{{data.Assists}}</p>
+                                        <span>Assists</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row m-0 p-0">
+                                <div class="col-6 grid-item">
+                                    <div class="well">
+                                        <p style="font-size: 3rem; text-shadow: 2px 1px #000;">{{data.CleanSheets}}</p>
+                                        <span>Clean Sheets</span>
+                                    </div>
+                                </div>
+                                <div class="col-6 grid-item">
+                                    <div class="well">
+                                        <p style="font-size: 3rem; text-shadow: 2px 1px #000;">{{data.Appearances}}</p>
+                                        <span>Appearances</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <img src="{{flagPath + data.Country + '.png' | lowercase}}" class="flag" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger">Previous</button>
+          <button type="button" class="btn btn-danger" (click)="nextPlayerOnRoster(data.playerID)">Next</button>
+        </div>
+      </div>
+    </div>
+  </div>

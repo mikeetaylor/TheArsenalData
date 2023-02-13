@@ -1,0 +1,54 @@
+section.front { 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    text-align: center;
+    height: 100vh;
+  }
+
+  a {font-size: 40px;}
+
+  h2 {
+      color: #fff;
+      font-size: 5rem;
+  }
+  
+  .arsenal-h2, .arsenal-h3 {
+    text-shadow: 2px 2px #DB0007;
+    font-family: "Roboto", sans-serif;
+  }
+
+  .hr-light {
+    border-top: 1px solid #fff;
+  }
+
+  .mb-2 {
+    margin-bottom: 3.5rem!important;
+}
+
+  .home-arrow {
+    font-size: 2.5rem;
+  }
+
+  .home-btn {
+    border: 3px solid #fff;
+    width: 13rem;
+  }
+
+  .btn {
+    color: #fff;
+    text-shadow: 2px 2px #db0007;
+  }
+
+  .btn:hover {
+    background: #db0007;
+  }
+
+  .home-div {
+    padding: 40px 4.56%;
+  }
+
+  .mdc-touch-target-wrapper {
+    padding-top: 50vh;
+  }

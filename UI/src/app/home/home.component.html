@@ -1,0 +1,12 @@
+<section class="home" [ngStyle]="{'background-image': 'url(' + backgroundImage + ')'}">
+<div class="container flex-center pt25">
+    <div style="padding-top:12%">
+    <h2 class="display-3 font-bold mb-2 arsenal-h2">Arsenal FC</h2>
+    <h4 class="text-white mt-2 mb-5 arsenal-h3">Tracking Seasonal Progress From FIFA 21.</h4>
+    <a class="waves-effect waves-light btn home-btn" data-wow-delay="0.2s" data-toggle="modal" data-target="#modal-reservation" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+    <i class="fa-solid fa-angles-right home-arrow"></i>&nbsp;
+    <span [routerLink]="['/Roster']">Enter</span>
+    </a>
+    </div>
+</div>
+</section>

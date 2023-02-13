@@ -1,0 +1,15 @@
+thead th {
+    cursor: pointer;
+    margin-right: 15px;
+    margin-left: 15px;
+  
+}
+
+.icons {
+    background: white;
+    border: 0;
+}
+
+.reverse {
+  font-size: 8pt !important;
+}

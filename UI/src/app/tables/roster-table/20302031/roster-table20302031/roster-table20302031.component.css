@@ -1,0 +1,24 @@
+thead th {
+    cursor: pointer;
+    margin-right: 15px;
+    margin-left: 15px;
+  
+}
+
+.icons {
+    background: none;
+    color: red;
+    border: 0;
+}
+
+.icons:hover {
+  color:#000;
+}
+
+.reverse {
+  font-size: 8pt !important;
+}
+
+.table > :not(caption) > * > * {
+  padding: 0.5rem 0.25rem !important;
+}

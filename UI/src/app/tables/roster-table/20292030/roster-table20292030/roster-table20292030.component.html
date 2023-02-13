@@ -1,0 +1,145 @@
+<div class="row">
+  <div class="col-md-11 col-xs-12 mt-3 input-group-sm">
+      <input type="search" class="form-control" [(ngModel)]="searchText" placeholder="Search...">
+  </div>
+  <div class="col-md-1 col-xs-6 mt-3 input-group-sm">
+  <button class="icons" name="Add Player"><add-player-modal></add-player-modal></button>
+  <button class="icons" name="Edit Player"><i class="fas fa-pencil"></i></button>
+  </div>
+</div>
+<div class="row">
+  <div class="table-responsive">
+  <table class="table table-striped table-hover table-bordered mt-2">
+    <thead>
+      <tr>
+        <th scope="col" [class.active]="order === 'Number'"   (click)="setOrder('Number')"> #             <span class="reverse" [hidden]="reverse">▼</span> <span class="reverse" [hidden]="!reverse">▲</span></th>
+        <th scope="col" [class.active]="order === 'Position'" (click)="setOrder('Position')">Position     <span class="reverse" [hidden]="reverse">▼</span> <span class="reverse" [hidden]="!reverse">▲</span></th>
+        <th scope="col" [class.active]="order === 'FirstName'"(click)="setOrder('FirstName')">First Name  <span class="reverse" [hidden]="reverse">▼</span> <span class="reverse" [hidden]="!reverse">▲</span></th>
+        <th scope="col" [class.active]="order === 'LastName'" (click)="setOrder('LastName')">Last Name    <span class="reverse" [hidden]="reverse">▼</span> <span class="reverse" [hidden]="!reverse">▲</span></th>
+        <th scope="col" [class.active]="order === 'Height'"   (click)="setOrder('Height')">Height         <span class="reverse" [hidden]="reverse">▼</span> <span class="reverse" [hidden]="!reverse">▲</span></th>
+        <th scope="col" [class.active]="order === 'Weight'"   (click)="setOrder('Weight')">Weight         <span class="reverse" [hidden]="reverse">▼</span> <span class="reverse" [hidden]="!reverse">▲</span></th>
+        <th scope="col">Birth Date</th>
+        <th scope="col" [class.active]="order === 'Country'" (click)="setOrder('Country')">Country        <span class="reverse" class="reverse" [hidden]="reverse">▼</span> <span class="reverse" [hidden]="!reverse">▲</span></th>
+        <th scope="col" [class.active]="order === 'Appearances'" (click)="setOrder('Appearances')">Appearances <span class="reverse" [hidden]="reverse">▼</span> <span class="reverse" [hidden]="!reverse">▲</span></th>
+        <th scope="col" [class.active]="order === 'Goals'" (click)="setOrder('Goals')">Goals              <span class="reverse" [hidden]="reverse">▼</span> <span class="reverse" [hidden]="!reverse">▲</span></th>
+        <th scope="col" [class.active]="order === 'Assists'" (click)="setOrder('Assists')">Assists        <span class="reverse" [hidden]="reverse">▼</span> <span class="reverse" [hidden]="!reverse">▲</span></th>
+        <th scope="col" [class.active]="order === 'CleanSheets'" (click)="setOrder('CleanSheets')">Clean Sheets <span class="reverse" [hidden]="reverse">▼</span> <span class="reverse" [hidden]="!reverse">▲</span></th>
+        <th scope="col">Loan Team</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let item of RosterList | orderBy: order:reverse:caseInsensitive | filter: searchText | paginate: { itemsPerPage, currentPage }">
+        <tr>
+            <td class="text-center">{{item.Number | number}}</td>
+            <td class="text-center">{{item.Position}}</td>
+            <td class="text-justify"><a (click)="onClick(item)" data-bs-toggle="modal" data-bs-target="#playerModal">{{item.FirstName}}</a></td>
+            <td class="text-justify"><a (click)="onClick(item)" data-bs-toggle="modal" data-bs-target="#playerModal">{{item.LastName}}</a></td>
+            <td class="text-center">{{item.Height | number:'1.2-2' | height }}</td>
+            <td class="text-center">{{item.Weight}}</td>
+            <td class="text-justify">{{item.Birthdate | date}}</td>
+            <td class="text-center">{{item.Country}}</td>
+            <td class="text-center">{{item.Appearances}}</td>
+            <td class="text-center">{{item.Goals}}</td>
+            <td class="text-center">{{item.Assists}}</td>
+            <td class="text-center">{{item.CleanSheets}}</td>
+            <td class="text-justify">{{item.LoanTeam}}</td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+  <table class="table table-bordered mt-2">
+  <tr *ngIf="RosterList.length === 0 || (RosterList | filter: searchText).length === 0"><td colspan="13" style="text-align: center; height: 180px; margin: 0 auto;"><h2>We couldn't 
+      find data for '{{searchText}}'.<br />Sorry.</h2></td></tr>
+  </table>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="dropdown">
+        <button class="btn btn-muted dropdown-toggle" type="button" id="Items per page" data-bs-toggle="dropdown" aria-expanded="false">
+          {{itemsPerPage}} Items per page
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="Items per page">
+          <li><a class="dropdown-item" (click)="updatePageSize(5)">5</a></li>
+          <li><a class="dropdown-item" (click)="updatePageSize(10)">10</a></li>
+          <li><a class="dropdown-item" (click)="updatePageSize(15)">15</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="col">
+      <pagination-controls class="pagination justify-content-end" (pageChange)="currentPage = $event"></pagination-controls>
+    </div>
+  </div>
+  <div class="row"></div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="playerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" style="max-width: 608px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="rosterPlayerModalLabel">{{PlayerNumber}} {{Position}} {{FirstName}} {{LastName}}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body m-0 p-0">
+          <div class="container m-0 p-0">
+              <div class="row m-0" style="color: white">
+                  <div class="col-6 p-0 m-0" style="border: 1px solid #000 !important">
+                  <ng-container *ngIf="modalOpen">  
+                  <img src="{{ImagePath + ImageName + '.jpg'}}" alt="" style="width: 302px; height: 295px">
+                  </ng-container>
+                      <div class="col-12 p-4 m-0">
+                          <p><span style="font-weight: bold;">Birthdate:</span> {{Birthdate | date :'mediumDate'}}<br />
+                          <span style="font-weight: bold;">Height:</span> {{Height | number:'1.2-2' | height }}<br />
+                          <span style="font-weight: bold;">Weight:</span> {{Weight}}<br />
+                          <span style="font-weight: bold;">Country:</span> {{Country}}</p>
+                      </div>
+                  </div>
+                  <div class="col-6 m-0 p-0" style="border: 1px solid #000 !important">
+                      <div class="row m-0">
+                          <div class="row m-0 p-0">
+                              <div class="col-6 grid-item">
+                                  <div class="well">
+                                      <p style="font-size: 3rem; text-shadow: 2px 1px #000;">{{Goals}}</p>
+                                      <span>Goals</span>
+                                  </div>
+                              </div>
+                              <div class="col-6 grid-item">
+                                  <div class="well">
+                                      <p style="font-size: 3rem; text-shadow: 2px 1px #000;">{{Assists}}</p>
+                                      <span>Assists</span>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row m-0 p-0">
+                              <div class="col-6 grid-item">
+                                  <div class="well">
+                                      <p style="font-size: 3rem; text-shadow: 2px 1px #000;">{{CleanSheets}}</p>
+                                      <span>Clean Sheets</span>
+                                  </div>
+                              </div>
+                              <div class="col-6 grid-item">
+                                  <div class="well">
+                                      <p style="font-size: 3rem; text-shadow: 2px 1px #000;">{{Appearances}}</p>
+                                      <span>Appearances</span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <ng-container *ngIf="modalOpen">  
+                          <img src="{{FlagPath + Country + '.png' | lowercase}}" class="flag" />
+                          </ng-container>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger">Previous</button>
+        <button type="button" class="btn btn-danger" (click)="nextPlayerRow(item)">Next</button>
+      </div>
+    </div>
+  </div>
+</div>

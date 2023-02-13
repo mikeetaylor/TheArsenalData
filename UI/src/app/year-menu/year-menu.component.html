@@ -1,0 +1,35 @@
+ <!-- <div class="btn-group">
+    <button [(ngModel)]="teamYear" type="button" class="btn btn-danger btn-lg dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+      2030-2031
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="#" (click)="sendValueIntoService('20292030')">2029-2030</a></li>
+      <li><a class="dropdown-item" href="#" (click)="sendValueIntoService('20282029')">2028-2029</a></li>
+      <li><a class="dropdown-item" href="#" (click)="sendValueIntoService('20272028')">2027-2028</a></li>
+      <li><a class="dropdown-item" href="#" (click)="sendValueIntoService('20262027')">2026-2027</a></li>
+      <li><a class="dropdown-item" href="#" (click)="sendValueIntoService('20252026')">2025-2026</a></li>
+      <li><a class="dropdown-item" href="#" (click)="sendValueIntoService('20242025')">2024-2025</a></li>
+      <li><a class="dropdown-item" href="#" (click)="sendValueIntoService('20232024')">2023-2024</a></li>
+      <li><a class="dropdown-item" href="#" (click)="sendValueIntoService('20222023')">2022-2023</a></li>
+      <li><a class="dropdown-item" href="#" (click)="sendValueIntoService('20212022')">2021-2022</a></li>
+    </ul>
+  </div> -->
+
+<div class="btn-group">
+  <!-- <select (change)="sendValueIntoService($event)" class="">
+    <option class="menu-item" value="20302031" (click)="sendValueIntoService('20302031')">2030-2031</option> -->
+    <!-- <option [routerLink]="[{ outlets: { mainContent:['RosterTable20292030'] } }]" class="menu-item" value="20292030" (click)="sendValueIntoService('20292030')">2029-2030</option> -->
+    <!-- <option [routerLink]="['/RosterTable20292030']" class="menu-item" value="20292030" (click)="sendValueIntoService('20292030')">2029-2030</option>
+    <option class="menu-item" value="20282029" (click)="sendValueIntoService('20282029')">2028-2029</option>
+    <option class="menu-item" value="20272028" (click)="sendValueIntoService('20272028')">2027-2028</option>
+    <option class="menu-item" value="20262027" (click)="sendValueIntoService('20262027')">2026-2027</option>
+    <option class="menu-item" value="20252026" (click)="sendValueIntoService('20252026')">2025-2026</option>
+    <option class="menu-item" value="20242025" (click)="sendValueIntoService('20242025')">2024-2025</option>
+    <option class="menu-item" value="20232024" (click)="sendValueIntoService('20232024')">2023-2024</option>
+    <option class="menu-item" value="20222023" (click)="sendValueIntoService('20222023')">2022-2023</option>
+    <option class="menu-item" value="20212022" (click)="sendValueIntoService('20212022')">2021-2022</option>
+  </select> -->
+  <select #season class="form-select">
+    <option *ngFor="let season of SeasonList" [value]="season.SeasonID">{{season.SeasonYear}}</option>
+  </select>
+</div>

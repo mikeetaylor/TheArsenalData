@@ -1,0 +1,14 @@
+.modal-body {
+    background-color: #222045;
+}
+
+.grid-item {
+    background-color: rgba(238, 110, 115, 0.9);
+    border: 1px solid #fff;
+    text-align: center;
+}
+
+.well {
+    
+    padding: 17px;
+}

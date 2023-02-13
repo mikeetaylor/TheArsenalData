@@ -1,0 +1,57 @@
+.top-bar {
+    background: #000;
+    color: #fff;
+    height: 2.8rem;
+    padding: .5rem 0;
+    text-align: right;
+}
+.top-bar a {
+    color: #fff;
+    height: 2.8rem;
+    padding: .5rem 0;
+}
+.bg-danger{
+    background: linear-gradient(99deg, rgba(219,0,7,1) 4%, rgba(0,0,0,1) 100%);
+}
+.bg-danger a{
+    color: #fff;
+}
+.navbar-brand{
+    font-size: calc(1.325rem + .9vw);
+    text-shadow: 1px 1px #000;
+    padding-top: 0.3125rem;
+    padding-bottom: 0.3125rem;
+    margin-right: 1rem;
+    text-decoration: none;
+    white-space: nowrap;
+}
+.navbar-dark .navbar-nav .nav-link{
+    color: rgba(255, 255, 255, 1) !important;
+    display: flex;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+.navbar-nav{
+    list-style: none;
+    margin-left: auto;
+}
+.black-navbar-nav{
+    flex-direction: row;
+    margin-left: auto;
+}
+.black-navbar-nav li{
+    display: inline;
+    margin-left: 10px;
+}
+.fa-user-plus, .fa-user, .fa-linkedin, .fa-print{
+    cursor: pointer;
+}
+ul.search-icons{
+    flex-direction: row;
+    margin-left: auto;
+}
+ul.search-icons li{
+    display: inline;
+    margin-left: 10px;
+}

@@ -1,0 +1,19 @@
+.form-select {
+    color: #fff;
+    background-color: #db0007;
+    border-color: #db0007;
+    width: auto;
+}
+
+option {
+    background: #fff;
+    color: #db0007;
+}
+
+select:focus {
+    background-color: #db0007 !important;
+}
+
+.menu-item:hover {
+    background: #000;
+}

@@ -1,0 +1,16 @@
+<header></header>
+<div class="container-fluid">
+    <div class="container-xl mt-3" style="height: calc(110vh);">
+        <div class="row">
+            <div class="col-8">
+              <h2><year [campaignYear]="'teamYear'"></year></h2>
+            </div>
+            <div class="col-4 text-end">
+                <router-outlet name='year'></router-outlet>
+            </div>
+        </div>
+    <competition-menu></competition-menu>
+    <router-outlet name='main'></router-outlet>
+    </div>
+</div>
+<footer></footer>
